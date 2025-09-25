@@ -2,6 +2,9 @@ package com.boots.poc.exemptions.api;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -38,6 +41,14 @@ public class ExemptionController {
 		return ResponseEntity.ok(body);
 	}
 
+	@GetMapping("/{storeId}/exemptionPage")
+	public Page<ExemptionEntryDto> getExemptionPage(
+		@PathVariable("storeId") Long storeId,
+		@PageableDefault(size=10, sort="code") Pageable pageable
+	){
+		return service.fetchExemptionPage(storeId, pageable);
+	}
+	
 	private ExemptionEntryDto toEntry(Exemption e) {
 		return new ExemptionEntryDto(e.getId(), e.getCode(), e.getName());
 	}
