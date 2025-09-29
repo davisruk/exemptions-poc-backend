@@ -12,8 +12,6 @@ import lombok.Data;
 public class EligibilityRule {
 	@Id @GeneratedValue private Long id;
 	private String exemptionCode;
-	private Long regionId;
-	private Long storeId;
 	private String kind;
 	private String expression;
 	private LocalDate validFrom;

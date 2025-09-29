@@ -25,8 +25,8 @@ public class EligibilityController {
 			@RequestParam (name = "dob") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) String dob,
 			@RequestParam(name="sex", defaultValue = "ANY") String sex,
 			@RequestParam(name="asOf", required=false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) String asOf) {
-		var facts = new PersonFacts(LocalDate.parse(dob), sex.toUpperCase());
 		var when = (asOf == null) ? LocalDate.now() : LocalDate.parse(asOf);
-		return svc.qualifies(storeId, exemptionCode, facts, when);
+		PersonFacts facts = new PersonFacts(LocalDate.parse(dob), sex, when);
+		return svc.checkSpa(facts);
 	}
 }
